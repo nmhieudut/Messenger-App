@@ -1,8 +1,10 @@
 import React, { ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
+import "./Join.css";
+
 interface Props {}
 
-export default function Join({}: Props): ReactElement {
+export default function Join(Props: Props): ReactElement {
   const [name, setName] = useState<string>("");
   const [room, setRoom] = useState<string>("");
 
@@ -13,6 +15,11 @@ export default function Join({}: Props): ReactElement {
       setRoom(e.target.value);
     } else return;
   };
+
+  const checkIfRoomsOrNamesExist = (e: React.MouseEvent) => {
+    return !name || !room ? e.preventDefault() : null;
+  };
+
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
@@ -38,7 +45,7 @@ export default function Join({}: Props): ReactElement {
           />
         </div>
         <Link
-          onClick={(e) => (!name || !room ? e.preventDefault() : null)}
+          onClick={(e) => checkIfRoomsOrNamesExist(e)}
           to={`/chat?name=${name}&room=${room}`}
         >
           <button className="button mt-20" type="submit">
